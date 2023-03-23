@@ -1,0 +1,223 @@
+
+// camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 200 );
+// 대상 크기에 따라 카메라 FOV 조절!! 
+
+                const group = new THREE.Group();
+                const objYearCount = 6;
+                // const objRadius = 10;
+                // const objHeight = 1.5;
+
+                // var objRadius = [];
+                // objRadius[0] = 0.0;
+                // objRadius[1] = 0.2;
+                // objRadius[2] = 0.1;
+                // objRadius[3] = 0.08;
+                // objRadius[4] = 0.19;
+                // objRadius[5] = 0.35;
+                // objRadius[6] = 0.33;
+                // objRadius[7] = 0.24;
+                // objRadius[8] = 0.08;
+                // objRadius[9] = 0.04;
+
+
+                // 락앤락 (FOV=100)
+                var objRadius = [
+                3.84,
+                3.82,
+                3.84,
+                3.82,
+                3.81,
+                3.83,
+                3.81,
+                3.8,
+                3.79
+                ];
+
+                var objHeight = [
+                3.13,
+                3.07,
+                3.06,
+                2.9,
+                2.93,
+                2.9,
+                3.07,
+                3.22,
+                3.26
+                ];
+
+                // 웅진에너지 (FOV=70)
+                var objRadius = [
+                2.61,
+                3.04,
+                2.95,
+                2.7,
+                2.86,
+                2.97
+                ];
+
+                var objHeight = [
+                3.29,
+                3.36,
+                3.34,
+                3.44,
+                3.43,
+                3.41
+                ];
+
+
+                // 소리바다 (FOV=10)
+                var objRadius = [
+                0.0,
+                0.2,
+                0.1,
+                0.08,
+                0.19,
+                0.35,
+                0.33,
+                0.24,
+                0.08,
+                0.04
+                ];
+
+                var objHeight = [
+                0.00,
+                0.10,
+                0.08,
+                0.08,
+                0.21,
+                0.18,
+                0.28,
+                0.29,
+                0.24,
+                0.24
+                ];
+
+
+
+                <script type="module">
+  
+
+                    const clock = new THREE.Clock();
+                    const textureLoader = new THREE.TextureLoader();
+                
+                    // 장면
+                    let scene = new THREE.Scene();
+                    scene.background = new THREE.Color('gray');
+                    // scene.background = new THREE.Color(0xf0f0f0);
+                    /// (조명)
+                    let light = new THREE.DirectionalLight(0xffffff, 1.5);
+                    scene.add(light);
+                
+                
+                    // 렌더러
+                    renderer.outputEncoding = THREE.sRGBEncoding;
+                
+                    labelRenderer = new CSS2DRenderer();
+                    labelRenderer.setSize(window.innerWidth, window.innerHeight);
+                    labelRenderer.domElement.style.position = 'absolute';
+                    labelRenderer.domElement.style.top = '0px';
+                    // document.body.appendChild(labelRenderer.domElement);
+                
+                    orbitControls.update();
+                
+                
+                    ////// 테스트 대상 추가 //////
+                    const color1 = 0xff0000;
+                    const color2 = 0xff7f00;
+                    const color3 = 0xffff00;
+                    const color4 = 0x00ff00;
+                    const color5 = 0x0000ff;
+                    const color6 = 0x4b0082;
+                    const color7 = 0xf0f0f0;
+                    const color8 = 0x909090;
+                    const color9 = 0x000000;
+                
+                    const obj_wireframe = true;
+                
+                    const obj1_RADIUS = 0.2;
+                    const obj1_HEIGHT = 0.1;
+                    const geometry1 = new THREE.CylinderGeometry(obj1_RADIUS, obj1_RADIUS, obj1_HEIGHT, 256);
+                    // const geometry1 = new THREE.SphereGeometry( obj1_RADIUS, 16, 16 );
+                    const material1 = new THREE.MeshStandardMaterial({
+                      color: color1, wireframe: obj_wireframe,
+                      transparent: true, opacity: 0.9,
+                      metalness: 0.3, roughness: 0.2
+                    });
+                    const obj1 = new THREE.Mesh(geometry1, material1);
+                    obj1.position.y = +0.1 / 2;
+                
+                    scene.add(obj1);
+                
+                    obj1.layers.enableAll();
+                
+                    const obj1Div = document.createElement('div');
+                    obj1Div.className = 'label';
+                    obj1Div.textContent = 'obj1';
+                    obj1Div.style.backgroundColor = 'transparent';
+                
+                    const obj1Label = new CSS2DObject(obj1Div);
+                    obj1Label.position.set(0, -1, 0);
+                    // obj1Label.position.set(1.5 * obj1_RADIUS, 0, 0);
+                    // obj1Label.center.set( 0, 1 );
+                    obj1.add(obj1Label);
+                    obj1Label.layers.set(0);
+                
+                    const obj1MassDiv = document.createElement('div');
+                    obj1MassDiv.className = 'label';
+                    obj1MassDiv.textContent = '5.97237e24 kg';
+                    obj1MassDiv.style.backgroundColor = 'transparent';
+                
+                    const obj1MassLabel = new CSS2DObject(obj1MassDiv);
+                    // obj1MassLabel.position.set(1.5 * obj1_RADIUS, 0, 0);
+                    obj1MassLabel.position.set(0, -0.5, 0);
+                    // obj1MassLabel.center.set( 0, 0 );
+                    obj1.add(obj1MassLabel);
+                    obj1MassLabel.layers.set(1);
+                
+                
+                
+                
+                    // 레디-액션!
+                    function animate() {
+                      requestAnimationFrame(animate);
+                      const r_x = 0.00;
+                      const r_y = 0.003;
+                      const vy = 0.003;
+                
+                      obj1.rotation.x += r_x;
+                      obj1.rotation.y += r_y + vy;
+                      obj2.rotation.x += r_x;
+                      obj2.rotation.y += r_y + 2 * vy;
+                      obj3.rotation.x += r_x;
+                      obj3.rotation.y += r_y + 3 * vy;
+                      obj4.rotation.x += r_x;
+                      obj4.rotation.y += r_y;
+                      obj5.rotation.x += r_x;
+                      obj5.rotation.y += r_y;
+                      obj6.rotation.x += r_x;
+                      obj6.rotation.y += r_y - 3 * vy;
+                      obj7.rotation.x += r_x;
+                      obj7.rotation.y += r_y - 3 * vy;
+                      obj8.rotation.x += r_x;
+                      obj8.rotation.y += r_y - 3 * vy;
+                      obj9.rotation.x += r_x;
+                      obj9.rotation.y += r_y - 4 * vy;
+                
+                      orbitControls.update();
+                      // dragControls.addEventListener('dragstart', function(event) {
+                      //   event.object.material.emissive.set(0xaaaaaa);
+                      // });
+                      // dragControls.addEventListener('dragend', function(event) {
+                      //   event.object.material.emissive.set(0x000000);
+                      // });
+                
+                      renderer.render(scene, camera);
+                    }
+                    animate()
+                
+                
+                
+                  </script>
+                </body>
+                
+                </html>
